@@ -3,6 +3,7 @@ import mysql.connector
 import pandas as pd
 import os
 from dotenv import load_dotenv
+from babel.numbers import format_currency
 
 # Load environment variables from .env
 load_dotenv()
@@ -50,3 +51,20 @@ st.title("💼 My Holdings Dashboard")
 
 df = get_holdings_with_meta()
 st.dataframe(df, use_container_width=True)
+
+# --- Aggregated current value by asset_type ---
+agg = df.groupby("asset_type")["current_value"].sum().reset_index()
+
+# Add percentage share
+total_value = agg["current_value"].sum()
+agg["percent_share"] = (agg["current_value"] / total_value) * 100
+
+# Format Indian currency properly
+def format_inr(x):
+    return format_currency(x, "INR", locale="en_IN")
+
+agg["current_value"] = agg["current_value"].apply(format_inr)
+agg["percent_share"] = agg["percent_share"].map(lambda x: f"{x:.2f}%")
+
+st.subheader("📊 Aggregated Value by Asset Type")
+st.dataframe(agg, use_container_width=True)
