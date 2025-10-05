@@ -30,21 +30,21 @@ DB_NAME=finance
 
 ```sql
 CREATE TABLE `holdings` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `asset_name` varchar(255) NOT NULL,
-  `asset_type` varchar(50) DEFAULT NULL,
-  `institution` varchar(255) DEFAULT NULL,
-  `current_value` decimal(15,2) NOT NULL,
-  `currency` varchar(10) DEFAULT 'INR',
-  `updated_at` date NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `asset_name` VARCHAR(255) NOT NULL,
+  `asset_type` VARCHAR(50) DEFAULT NULL,
+  `institution` VARCHAR(255) DEFAULT NULL,
+  `current_value` DECIMAL(15,2) NOT NULL,
+  `currency` VARCHAR(10) DEFAULT 'INR',
+  `updated_at` DATE NOT NULL,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `holding_meta` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `holding_id` int NOT NULL,
-  `meta_key` varchar(100) NOT NULL,
-  `meta_value` varchar(255) NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `holding_id` INT NOT NULL,
+  `meta_key` VARCHAR(100) NOT NULL,
+  `meta_value` JSON NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`holding_id`) REFERENCES `holdings` (`id`) ON DELETE CASCADE
 );

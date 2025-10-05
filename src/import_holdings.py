@@ -52,10 +52,11 @@ def main():
         holding_id = cur.lastrowid
 
         for key, val in h.get("meta", {}).items():
+            json_value = json.dumps(val, ensure_ascii=False)
             cur.execute("""
                 INSERT INTO holding_meta (holding_id, meta_key, meta_value)
                 VALUES (%s, %s, %s)
-            """, (holding_id, key, str(val)))
+            """, (holding_id, key, json_value))
 
     conn.commit()
     cur.close()
