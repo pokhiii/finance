@@ -52,7 +52,7 @@ CREATE TABLE `holding_meta` (
 
 ---
 
-## 🚀 Usage
+## Usage
 
 1. Take **screenshots of your investments** (bank accounts, stocks, FDs, mutual funds, ETFs, etc.).
 2. Paste the screenshots into ChatGPT along with this prompt:
@@ -96,6 +96,16 @@ python src/import_holdings.py holdings.json
 This will:
 - Clear old snapshot
 - Insert fresh holdings + metadata
+
+---
+
+## 🚀 Launch the Dashboard
+
+To view and analyze your portfolio:
+```bash
+streamlit run app.py
+```
+Then open the link shown in your terminal (typically [http://localhost:8501](http://localhost:8501)).
 
 ---
 
